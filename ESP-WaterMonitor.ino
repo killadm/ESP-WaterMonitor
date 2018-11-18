@@ -73,7 +73,7 @@ unsigned long oldTime = 0;
 unsigned long previousTime = 0;
 
 void setup() {
-  Serial.begin(115200);
+  // Serial.begin(115200);
   mytds.begin(9600);
 
   Debug.begin("Telnet_HostName");
@@ -88,7 +88,7 @@ void setup() {
   httpUpdater.setup(&httpServer, update_path, update_username, update_password);
   httpServer.begin();
   MDNS.addService("http", "tcp", 8266);
-  Serial.printf("HTTPUpdateServer ready! Open http://%s.local%s in your browser and login with username '%s' and password '%s'\n", host, update_path, update_username, update_password);
+  Debug.printf("HTTPUpdateServer ready! Open http://%s.local%s in your browser and login with username '%s' and password '%s'\n", host, update_path, update_username, update_password);
   EEPROM.begin(512);
 
   if (!reset1) {
@@ -163,7 +163,7 @@ void checkTDS() {
         }
         else
         {
-           Serial.print("not found protocol header!");
+           Debug.print("not found protocol header!");
         }
       }
 
@@ -186,20 +186,20 @@ void checkTDS() {
           {
             tds1 = hexToDec(receivedMessage[0],receivedMessage[1]);
             tds2 = hexToDec(receivedMessage[2],receivedMessage[3]);
-            Serial.print("tds1:");
-            Serial.println(tds1);
-            Serial.print("tds2:");
-            Serial.println(tds2);
+            Debug.print("tds1:");
+            Debug.println(tds1);
+            Debug.print("tds2:");
+            Debug.println(tds2);
           }
           // 解析温度数据数据
           if (ProtocolHeader == ProtocolHeaderByteTemp)
           {
             temp1 = hexToDec(receivedMessage[0],receivedMessage[1])/100.00;
             temp2 = hexToDec(receivedMessage[2],receivedMessage[3])/100.00;
-            Serial.print("temp1:");
-            Serial.println(temp1);
-            Serial.print("temp2:");
-            Serial.println(temp2);
+            Debug.print("temp1:");
+            Debug.println(temp1);
+            Debug.print("temp2:");
+            Debug.println(temp2);
           }
           // 异常代码： 01：命令帧异常
           //           02：忙碌中
@@ -207,15 +207,15 @@ void checkTDS() {
           //           04：检测温度超出范围
           if (ProtocolHeader == ProtocolHeaderByteError)
           {
-            Serial.print("error:");
-            Serial.println(receivedMessage[0]);
+            Debug.print("error:");
+            Debug.println(receivedMessage[0]);
           }
         } else {
-          Serial.print("checksum error!receivedMessage:");
-          Serial.println(receivedMessage[0]);
-          Serial.println(receivedMessage[1]);
-          Serial.println(receivedMessage[2]);
-          Serial.println(receivedMessage[3]);
+          Debug.print("checksum error!receivedMessage:");
+          Debug.println(receivedMessage[0]);
+          Debug.println(receivedMessage[1]);
+          Debug.println(receivedMessage[2]);
+          Debug.println(receivedMessage[3]);
         }
       appearToHaveValidMessage = false;
       }
@@ -234,12 +234,6 @@ void checkFlow() {
     // 计算前禁用中断
     detachInterrupt(flowSensorPin1);
     detachInterrupt(flowSensorPin2);
-
-    Serial.print("totalFlow1:");
-    Serial.println(totalFlow1);
-
-    Serial.print("totalFlow2:");
-    Serial.println(totalFlow2);
 
     // 计算流量
     float litresFlowed1 = pulseCount1 / calibrationFactor1;
@@ -261,6 +255,18 @@ void checkFlow() {
     EEPROM.put(100, totalFlow1);
     EEPROM.put(200, totalFlow2);
     EEPROM.commit();
+
+    Debug.print("flowRate1:");
+    Debug.println(flowRate1);
+
+    Debug.print("flowRate2:");
+    Debug.println(flowRate2);
+
+    Debug.print("totalFlow1:");
+    Debug.println(totalFlow1);
+
+    Debug.print("totalFlow2:");
+    Debug.println(totalFlow2);
 
     // 重置脉冲计数器
     pulseCount1 = 0;
