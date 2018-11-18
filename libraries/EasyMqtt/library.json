@@ -1,0 +1,16 @@
+{
+    "name": "EasyMqtt",
+    "keywords": "mqtt, m2m, iot, esp8266",
+    "description": "Makes it easier to get up and running with mqtt on the esp8266",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bloft/EasyMqtt.git"
+    },
+    "version": "0.4",
+    "exclude": "tests",
+    "examples": "examples/*/*.ino",
+    "frameworks": "arduino",
+    "platforms": [
+        "espressif"
+    ]
+}

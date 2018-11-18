@@ -1,0 +1,28 @@
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <div id="chart_div"></div>
+
+<script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', '');
+
+      data.addRow([0,0]);
+
+      var options = {
+          curveType: 'function',
+          legend: { position: 'none' }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+      
+      setInterval(function() {
+          data.addRow([data.getNumberOfRows()+1, Math.round(60 * Math.random())]);
+          chart.draw(data, options);
+        }, 1000);
+    }
+</script>

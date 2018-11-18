@@ -1,0 +1,276 @@
+<!-- split:main1 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Device Info - {device_id}</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  </head>
+  <body style="background-color: #F0F0F0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="application/javascript">
+    function sendValue(input) {
+      $.ajax({
+        url: input.dataset.url, method: "POST", data: $(input).closest("form").find("input").val()
+      }).complete(function (data, textStatus, jqXHR) {
+        alert(textStatus);
+      });
+    }
+
+    var options = {
+      curveType: 'function',
+      legend: { position: 'none' },
+			theme: 'maximized'
+    };
+
+    var graphData = new Array();
+    var graphChart = new Array();
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+        
+    function drawChart() {
+      $("[data-ajaxurl]").each(function(index) {
+        var ele = $(this);
+        
+        graphData[index] = new google.visualization.DataTable();
+        graphData[index].addColumn('number', '');
+        graphData[index].addColumn('number', '');
+
+        graphChart[index] = new google.visualization.LineChart(ele.find('#chart')[0]);
+        graphChart[index].draw(graphData[index], options);
+      });
+    };
+
+    setInterval(function() {
+      $("[data-ajaxurl]").each(function(index) {
+        var value = Math.round(20 * Math.random());
+
+        graphData[index].addRow([graphData[index].getNumberOfRows()+1, value]);
+        graphChart[index].draw(graphData[index], options);
+        
+        $(this).find('#current').text(value);
+        $(this).find('#avg').text(value);
+      });
+    }, 1000);
+  </script>
+		<div class="container">
+      <h1 style="
+            background-color: #FFF;
+            padding: 6px 14px;
+            border: 1px solid #e1e1e8;
+            border-radius: 4px;
+            ">Device Info - {device_id}</h1>
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a href="#devices" aria-controls="devices" role="tab" data-toggle="tab">
+            <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Devices
+        </a></li>
+				<li role="presentation"><a href="#config" aria-controls="config" role="tab" data-toggle="tab">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Config
+        </a></li>
+				<li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">
+            <span class="glyphicon glyphicon-book" aria-hidden="true"></span> About
+        </a></li>
+			</ul>
+			<div class="tab-content" style="border-style: solid; border-color: #ddd; border-width: 0px 1px 1px 1px; background-color: #FFF">
+				<div role="tabpanel" class="tab-pane active" id="devices">
+          <br />
+          <div class="container-fluid">
+  		      <div class="row">
+<!-- split:main1 -->
+
+<!-- split:sensor -->
+	    	      <div class="col-md-6">
+                <div class="panel panel-info" id="temperature" style="box-shadow: 1px 1px 5px #555;" data-ajaxurl="{path}">
+                  <div class="panel-heading">
+                    <span class="glyphicon glyphicon-scale" aria-hidden="true"></span> 
+                    <strong>{name}</strong>
+                  </div>
+									<ul class="list-group">
+                    <li class="list-group-item" id="chart"></li>
+                    <li class="list-group-item"><span style="font-weight: bold">Current:</span><span style="float: right" id="current">{value}</span></li>
+                    <li class="list-group-item"><span style="font-weight: bold">Avg:</span><span style="float: right" id="avg">{value}</span></li>
+									</ul>
+                  <div class="panel-footer" style="padding: 5px 15px; font-size: 85%"><strong>Last updated:</strong> <span id="updated">2017-09-29 8:30:23</span></div>
+                </div>
+              </div>
+<!-- split:sensor -->
+
+<!-- split:input -->
+              <div class="col-md-6">
+                <div class="panel panel-success">
+                  <div class="panel-heading"><strong>{name}</strong></div>
+                  <div class="panel-body" style="font-size: 24px;">
+                    <form>
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="value">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button" data-url="{path}" onclick="sendValue(this);">
+                            Send
+                          </button>
+                        </span>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+<!-- split:input -->
+
+	    	      <div class="col-md-6">
+                <div class="panel panel-info" id="temperature" style="box-shadow: 1px 1px 5px #555;" data-ajaxurl="test2">
+                  <div class="panel-heading">
+                    <span class="glyphicon glyphicon-scale" aria-hidden="true"></span> 
+                    <strong>/sensors/temperature</strong>
+                  </div>
+									<ul class="list-group">
+                    <li class="list-group-item" id="chart"></li>
+										<li class="list-group-item"><span style="font-weight: bold">Current:</span><span style="float: right" id="current">21.4</span></li>
+										<li class="list-group-item"><span style="font-weight: bold">Avg:</span><span style="float: right" id="avg">21.2</span></li>
+									</ul>
+                  <div class="panel-footer" style="padding: 5px 15px; font-size: 85%"><strong>Last updated:</strong> 2017-09-29 8:30:23</div>
+                </div>
+              </div>
+
+<!-- split:main2 -->
+           </div>
+          </div>
+				</div>
+
+        <div role="tabpanel" class="tab-pane" id="config">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <form class="form-horizontal" action="/save" method="POST">
+<!-- split:main2 -->
+                  <br />
+                  <h3>wifi</h3><hr/>
+                  <div class="form-group">
+                    <label for="wifi.ssid" class="col-sm-2 control-label">ssid</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="wifi.ssid" placeholder="" value="ssid">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="wifi.pass" class="col-sm-2 control-label">password</label>
+                    <div class="col-sm-8">
+                      <input type="password" class="form-control" id="wifi.pass" placeholder="" value="">
+                    </div>
+                  </div>
+                  <br />
+                  <h3>mqtt</h3><hr/>
+                  <div class="form-group">
+                    <label for="mqtt.host" class="col-sm-2 control-label">host</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="mqtt.host" placeholder="" value="host">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="mqtt.port" class="col-sm-2 control-label">port</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="mqtt.port" placeholder="" value="1883">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="mqtt.user" class="col-sm-2 control-label">user</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="mqtt.user" placeholder="" value="user">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="mqtt.pass" class="col-sm-2 control-label">password</label>
+                    <div class="col-sm-8">
+                      <input type="password" class="form-control" id="mqtt.pass" placeholder="" value="">
+                    </div>
+                  </div>
+<!-- split:config_header -->
+                  <br />
+                  <h3>{title}</h3><hr/>
+<!-- split:config_header -->
+<!-- split:config_entry -->
+                  <div class="form-group">
+                    <label for="{key}" class="col-sm-2 control-label">{key}</label>
+                    <div class="col-sm-8">
+                      <input type="{type}" class="form-control" id="{key}" placeholder="" value="{value}">
+                    </div>
+                  </div>
+<!-- split:config_entry -->
+<!-- split:main3 -->
+                  <hr/>
+                  <div class="form-group">
+                    <div class="col-sm-offset-9 col-sm-2">
+                      <button type="submit" class="btn btn-default">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+				<div role="tabpanel" class="tab-pane" id="about">
+          <br />
+          <div class="container-fluid">
+  		      <div class="row">
+	  		      <div class="col-md-12">
+                <h1>About</h1>
+                <p>Device is using EasyMqtt version 0.3</p>
+                <dl class="dl-horizontal">
+                  <dt>Device Id</dt><dd>{device_id}</dd>
+                  <dt>Topic</dt><dd>{topic}</dd>
+                </dl>
+                <hr />
+                <h3>MQTT API:</h3>
+                <ul class="list-group">
+<!-- split:main3 -->
+                  <li class="list-group-item">
+                    {path}
+                    <span class="badge">Set</span>
+                    <span class="badge">Get</span>
+                  </li>
+                  <li class="list-group-item">
+                    EasyMqtt/123456/model
+                    <span class="badge">Get</span>
+                  </li>
+<!-- split:main4 -->
+                </ul>
+                <hr />
+                <h3>Rest API:</h3>
+                <ul class="list-group">
+<!-- split:main4 -->
+<!-- split:api_doc -->
+                  <li class="list-group-item">
+                    {path}
+                  </li>
+<!-- split:api_doc -->
+                  <li class="list-group-item">
+                    /rest/model
+                    <span class="badge">GET</span>
+                  </li>
+                  <li class="list-group-item">
+                    /rest/source
+                    <span class="badge">GET</span>
+                    <span class="badge">POST</span>
+                  </li>
+                  <li class="list-group-item">
+                    /rest/lamp/mode
+                    <span class="badge">GET</span>
+                    <span class="badge">POST</span>
+                  </li>
+<!-- split:main5 -->
+                </ul>
+              </div>
+            </div>
+          </div>
+				</div>
+
+			</div>
+		</div>
+
+  </body>
+</html>
+<!-- split:main5 -->

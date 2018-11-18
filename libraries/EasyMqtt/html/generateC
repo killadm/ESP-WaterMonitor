@@ -1,0 +1,44 @@
+#!/usr/bin/php
+<?php
+
+generateC("template.html", "../src/html.h");
+//generateC("test.html", "../src/html.h");
+
+function generateC($input, $output) {
+  $library = json_decode(file_get_contents("../library.json"), true);
+
+  $html = file_get_contents($input);
+  $html = str_replace("{version}", $library['version'], $html);
+  $html = str_replace("{easymqtt.url}", $library['repository']['url'], $html);
+
+  $pattern = "|<!-- split:(.*) -->|U";
+
+  preg_match_all($pattern, $html, $matches, PREG_SET_ORDER);
+
+  $split = preg_split($pattern, $html);
+
+  $tmp = array();
+  foreach($matches as $key => $value) {
+    if(!array_key_exists($value[1], $tmp)) {
+      $tmp[$value[1]] = addslashes(trimContent($split[$key + 1]));
+    }
+  } 
+
+  $fp = fopen($output, "w");
+  fputs($fp, "#pragma once\n");
+  fputs($fp, "\n");
+  foreach($tmp as $header => $content) {
+    $header = strtoupper($header);
+    fputs ($fp, "const char HTML_${header}[] PROGMEM = \"$content\";\n");
+  }
+  fclose ($fp);
+}
+
+function trimContent($str) {
+  $arr = explode("\n",$str);
+  $output = "";
+  foreach($arr as $line) {
+    $output .= trim($line);
+  }
+  return $output;
+}

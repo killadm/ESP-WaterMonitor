@@ -1,0 +1,5 @@
+C++
+https://hackaday.com/2017/05/05/using-modern-c-techniques-with-arduino/
+
+OTA
+https://randomnerdtutorials.com/esp8266-ota-updates-with-arduino-ide-over-the-air/
