@@ -3,6 +3,8 @@
 
 ![](http://img.killadm.com/18-11-19/92132411.jpg)
 
+
+
 ## 特性
 
 - 双路 TDS/温度监测
@@ -13,11 +15,15 @@
 - 基于telnet的远程debug输出
 - 提供HomeAassistant配置范例
 
+
+
 ## 依赖
 
 - 此项目依赖EasyMqtt库 https://github.com/bloft/EasyMqtt
 
 - 在libraries/EasyMqtt目录下有一个汉化版本
+
+
 
 ## 硬件
 
@@ -49,7 +55,9 @@
 
 ![](http://img.killadm.com/18-11-19/64619394.jpg)
 
-## 接线方式
+
+
+## 电路连接
 
 | ESP8266 | TDS模块 | 原水流量计 | 纯水流量计 |
 | :-----: | :-----: | :--------: | :--------: |
@@ -61,6 +69,14 @@
 |   D5    |         |            |    黄线    |
 |   D6    |         |    黄线    |            |
 
+
+
+## 传感器连接
+
+![](http://img.killadm.com/18-11-19/78089682.jpg)
+
+
+
 ## 配置HomeAssistant
 
 ![](http://img.killadm.com/18-11-19/34953802.jpg)
@@ -69,4 +85,4 @@
 
 - 配置范例 [packages/ESP-WaterMonitor.yaml](https://raw.githubusercontent.com/killadm/ESP-WaterMonitor/master/packages/ESP-WaterMonitor.yaml)
 
-- 把范例中的2681212替换为你自己的Device ID
+- 把范例中的2681212替换成你自己的Device ID
