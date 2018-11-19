@@ -12,7 +12,7 @@ class NTPClient {
     WiFiUDP udp;
     long localEpoc = 0;
     long localMillisAtUpdate;
-    const char* ntpServerName = "pool.ntp.org";
+    const char* ntpServerName = "time1.aliyun.com";
     const int httpServerPort = NTP_DEFAULT_LOCAL_PORT;
     byte packetBuffer[NTP_PACKET_SIZE];
 
