@@ -61,5 +61,12 @@
 |   D5    |         |            |    黄线    |
 |   D6    |         |    黄线    |            |
 
+## 配置HomeAssistant
 
+![](http://img.killadm.com/18-11-19/34953802.jpg)
 
+- package用法https://bbs.hassbian.com/forum.php?mod=viewthread&tid=1114
+
+- 配置范例 [packages/ESP-WaterMonitor.yaml](https://raw.githubusercontent.com/killadm/ESP-WaterMonitor/master/packages/ESP-WaterMonitor.yaml)
+
+- 把范例中的2681212替换为你自己的Device ID
