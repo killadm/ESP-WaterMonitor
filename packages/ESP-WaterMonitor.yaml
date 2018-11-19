@@ -1,0 +1,88 @@
+sensor:
+  - platform: mqtt
+    name: "tds1"
+    state_topic: "ESP-WaterMonitor/2681212/tds1"
+    unit_of_measurement: "PPM"
+    qos: 1
+
+  - platform: mqtt
+    name: "tds2"
+    state_topic: "ESP-WaterMonitor/2681212/tds2"
+    unit_of_measurement: "PPM"
+    qos: 1
+
+  - platform: mqtt
+    name: "temp1"
+    state_topic: "ESP-WaterMonitor/2681212/temp1"
+    unit_of_measurement: "°C"
+    qos: 1
+
+  - platform: mqtt
+    name: "temp2"
+    state_topic: "ESP-WaterMonitor/2681212/temp2"
+    unit_of_measurement: "°C"
+    qos: 1
+
+  - platform: mqtt
+    name: "totalFlow1"
+    state_topic: "ESP-WaterMonitor/2681212/totalFlow1"
+    unit_of_measurement: "L"
+    qos: 1
+
+  - platform: mqtt
+    name: "totalFlow2"
+    state_topic: "ESP-WaterMonitor/2681212/totalFlow2"
+    unit_of_measurement: "L"
+    qos: 1
+
+  - platform: mqtt
+    name: "flowRate1"
+    state_topic: "ESP-WaterMonitor/2681212/flowRate1"
+    unit_of_measurement: "L/min"
+    qos: 1
+
+  - platform: mqtt
+    name: "flowRate2"
+    state_topic: "ESP-WaterMonitor/2681212/flowRate2"
+    unit_of_measurement: "L/min"
+    qos: 1
+
+homeassistant:
+  customize:
+    sensor.tds1:
+      friendly_name: 原水TDS
+      icon: mdi:water
+    sensor.tds2:
+      friendly_name: 净水TDS
+      icon: mdi:water
+    sensor.temp1:
+      friendly_name: 原水水温
+    sensor.temp2:
+      friendly_name: 净水水温
+    sensor.totalFlow1:
+      friendly_name: 原水流量
+      icon: mdi:water-pump
+    sensor.totalFlow2:
+      friendly_name: 净水流量
+      icon: mdi:water-pump
+    sensor.flowRate1:
+      friendly_name: 原水流速
+      icon: mdi:help-network
+    sensor.flowRate2:
+      friendly_name: 净水流速
+      icon: mdi:help-network
+
+group:
+  water:
+    name: 净水器
+    view: no
+    control: hidden
+    entities:
+      - sensor.tds1
+      - sensor.tds2
+      - sensor.temp1
+      - sensor.temp2
+      - sensor.flowRate1
+      - sensor.flowRate2
+      - sensor.totalFlow1
+      - sensor.totalFlow2
