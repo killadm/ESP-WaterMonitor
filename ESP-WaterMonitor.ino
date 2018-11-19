@@ -108,10 +108,13 @@ void setup() {
 
   pinMode(flowSensorPin1, INPUT);
   pinMode(flowSensorPin2, INPUT);
+
   pinMode(ledPin, OUTPUT);
 
   digitalWrite(flowSensorPin1, HIGH);
   digitalWrite(flowSensorPin2, HIGH);
+
+  digitalWrite(ledPin, HIGH);
 
   attachInterrupt(flowSensorPin1, pulseCounter1, FALLING);
   attachInterrupt(flowSensorPin2, pulseCounter2, FALLING);
@@ -240,8 +243,8 @@ void checkFlow() {
     float litresFlowed2 = pulseCount2 / calibrationFactor2;
 
     // 计算脉冲频率
-    float pulseFrequency1 = pulseCount1 * (1000.0 / elapsedTime);
-    float pulseFrequency2 = pulseCount2 * (1000.0 / elapsedTime);
+    float pulseFrequency1 = pulseCount1 / (elapsedTime / 1000.0);
+    float pulseFrequency2 = pulseCount2 / (elapsedTime / 1000.0);
 
     // 计算流速(单位：L/min)
     float flowRate1 = pulseFrequency1 / frequencyFactor;
