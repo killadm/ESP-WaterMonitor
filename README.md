@@ -1,9 +1,21 @@
 # ESP-WaterMonitor
 基于esp8266的TDS、流量监测系统
 
+![](http://img.killadm.com/18-11-19/92132411.jpg)
+
+## 特性
+
+- 双路 TDS/温度监测
+- 双路流速/流量监测
+- WEB界面展示当前值/更新时间
+- MQTT/RESTful API支持
+- Arduino OTA/WEB OTA支持
+- 基于telnet的远程debug输出
+- 提供HomeAassistant配置范例
+
 ## 依赖
 
-- 此项目MQTT部分依赖EasyMqtt库 https://github.com/bloft/EasyMqtt
+- 此项目依赖EasyMqtt库 https://github.com/bloft/EasyMqtt
 
 - 在libraries/EasyMqtt目录下有一个汉化版本
 
