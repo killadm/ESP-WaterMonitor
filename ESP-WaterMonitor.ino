@@ -247,8 +247,8 @@ void checkFlow() {
     float pulseFrequency2 = pulseCount2 / (elapsedTime / 1000.0);
 
     // 计算流速(单位：L/min)
-    float flowRate1 = pulseFrequency1 / frequencyFactor;
-    float flowRate2 = pulseFrequency2 / frequencyFactor;
+    flowRate1 = pulseFrequency1 / frequencyFactor;
+    flowRate2 = pulseFrequency2 / frequencyFactor;
 
     // 把本次流量累加到总流量
     totalFlow1 += litresFlowed1;
