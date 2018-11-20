@@ -3,7 +3,7 @@
 
 ![](http://img.killadm.com/18-11-19/92132411.jpg)
 
-
+[TOC]
 
 ## 特性
 
@@ -15,15 +15,11 @@
 - 基于telnet的远程debug输出
 - 提供HomeAassistant配置范例
 
-
-
 ## 依赖
 
 - 此项目依赖EasyMqtt库 https://github.com/bloft/EasyMqtt
 
 - 在libraries/EasyMqtt目录下有一个汉化版本
-
-
 
 ## 硬件
 
@@ -35,13 +31,11 @@
 | :------: | :------------: | :------: | :--: | :------: |
 | TDS/水温 | <2%F.S./±0.5°C |  3.3 V   | UART |  双通道  |
 
-- 232三通 x 2
+- **232三通** x 2
 
-![](http://img.killadm.com/18-11-19/89430904.jpg)
+![](http://img.killadm.com/18-11-20/61480188.jpg)
 
-
-
-- YF-S402 霍尔流量计 x 2
+- **YF-S402 霍尔流量计** x 2
 
 ![](http://img.killadm.com/18-11-18/40809858.jpg)
 
@@ -51,11 +45,9 @@
 
 频率：F=73*Q(Q 为流量 L/min)  流完一升水输出 4380 个脉冲
 
-- ESP8266
+- **ESP8266** x 1
 
 ![](http://img.killadm.com/18-11-19/64619394.jpg)
-
-
 
 ## 电路连接
 
@@ -69,20 +61,13 @@
 |   D5    |         |            |    黄线    |
 |   D6    |         |    黄线    |            |
 
-
-
 ## 传感器连接
 
-![](http://img.killadm.com/18-11-19/78089682.jpg)
+![](http://img.killadm.com/18-11-20/85375575.jpg)
 
-
-
-## 配置HomeAssistant
+## 接入HomeAssistant
 
 ![](http://img.killadm.com/18-11-19/34953802.jpg)
 
 - package用法https://bbs.hassbian.com/forum.php?mod=viewthread&tid=1114
-
-- 配置范例 [packages/ESP-WaterMonitor.yaml](https://raw.githubusercontent.com/killadm/ESP-WaterMonitor/master/packages/ESP-WaterMonitor.yaml)
-
-- 把范例中的2681212替换成你自己的Device ID
+- 配置范例 [packages/ESP-WaterMonitor.yaml](https://raw.githubusercontent.com/killadm/ESP-WaterMonitor/master/packages/ESP-WaterMonitor.yaml) （注意：把范例中的2681212替换成你自己的Device ID！）
