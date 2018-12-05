@@ -155,7 +155,9 @@ void WebPortal::handleRest() {
 void WebPortal::handleSaveConfig() {
   if(!auth()) return;
   config->each([&](char* key, char *value) {
-    config->set(key, webServer->arg(key).c_str());
+    if(!(String(key)).endsWith("password") || strlen(value) > 0) {
+      config->set(key, webServer->arg(key).c_str());
+    }
   });
   config->save();
   webServer->sendHeader("Location", String("/"), true);
